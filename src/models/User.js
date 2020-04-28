@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
-const userSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
@@ -17,9 +17,10 @@ const userSchema = new mongoose.Schema({
     enum: ['worker', 'employer'],
     required: true,
   },
+  offers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Offer' }],
 });
 
-userSchema.pre('save', function(next) {
+UserSchema.pre('save', function(next) {
   if (!this.isModified('password')) {
     return next;
   }
@@ -31,7 +32,7 @@ userSchema.pre('save', function(next) {
   });
 });
 
-userSchema.methods.comparePassword = function(password, cb) {
+UserSchema.methods.comparePassword = function(password, cb) {
   bcrypt.compare(password, this.password, (err, isMatch) => {
     if (err) {
       return cb(err);
@@ -44,4 +45,4 @@ userSchema.methods.comparePassword = function(password, cb) {
   });
 };
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('User', UserSchema);
