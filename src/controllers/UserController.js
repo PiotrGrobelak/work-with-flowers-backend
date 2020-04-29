@@ -1,5 +1,5 @@
 // const passport = require('passport');
-// const passportConfig = require('../config/passport');
+require('../config/passport');
 const signToken = require('../helpers/signToken');
 const User = require('../models/User');
 // const Offer = require('../models/Offer');
@@ -34,6 +34,10 @@ const userController = {
       res.cookie('access_token', token, { httpOnly: true, sameSite: true });
       res.status(200).json({ isAuthenticated: true, user: { username, role } });
     }
+  },
+  userLogout: (req, res) => {
+    res.clearCookie('access_token');
+    res.json({ user: { username: '', role: '' }, success: true });
   },
 };
 
