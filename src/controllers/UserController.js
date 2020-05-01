@@ -1,13 +1,14 @@
 const User = require('../models/User');
 const Offer = require('../models/Offer');
 const signToken = require('../helpers/signToken');
+const errorMessage = require('../helpers/errorMessage');
 
 const userController = {
   userRegister: (req, res) => {
     const { username, password, role } = req.body;
     User.findOne({ username }, (err, user) => {
       if (err) {
-        res.status(500).json({ message: { msgBody: 'Error has occured', msgError: true } });
+        errorMessage(res);
       }
       if (user) {
         res.status(400).json({ message: { msgBody: 'Username is already taken', msgError: true } });
@@ -15,7 +16,7 @@ const userController = {
         const newUser = new User({ username, password, role });
         newUser.save((err) => {
           if (err) {
-            res.status(500).json({ message: { msgBody: 'Error has occured', msgError: true } });
+            errorMessage(res);
           } else {
             res
               .status(201)
@@ -41,12 +42,12 @@ const userController = {
     const offer = new Offer(req.body);
     offer.save((err) => {
       if (err) {
-        res.status(500).json({ message: { msgBody: 'Error has occured', msgError: true } });
+        errorMessage(res);
       } else {
         req.user.offers.push(offer);
         req.user.save((err) => {
           if (err) {
-            res.status(500).json({ message: { msgBody: 'Error has occured', msgError: true } });
+            errorMessage(res);
           } else {
             res
               .status(200)
@@ -61,7 +62,7 @@ const userController = {
       .populate('offers')
       .exec((err, doc) => {
         if (err) {
-          res.status(500).json({ message: { msgBody: 'Error has occured', msgError: true } });
+          errorMessage(res);
         } else {
           res.status(200).json({ offers: doc.offers, authenticated: true });
         }
