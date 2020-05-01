@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
+const USER_TYPES = ['employee', 'employer'];
+
 const UserSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -14,7 +16,7 @@ const UserSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['worker', 'employer'],
+    enum: USER_TYPES,
     required: true,
   },
   offers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Offer' }],
