@@ -59,11 +59,11 @@ const userController = {
   userGetOffers: (req, res) => {
     User.findById({ _id: req.user._id })
       .populate('offers')
-      .exec((err, document) => {
+      .exec((err, doc) => {
         if (err) {
           res.status(500).json({ message: { msgBody: 'Error has occured', msgError: true } });
         } else {
-          res.status(200).json({ offers: document.offers, authenticated: true });
+          res.status(200).json({ offers: doc.offers, authenticated: true });
         }
       });
   },
