@@ -10,6 +10,15 @@ const offerController = {
       errorMessage(res);
     }
   },
+  getOffersByType: async (req, res) => {
+    console.log(req.query);
+    const offersOfType = await Offer.find({ type: req.query.type });
+    try {
+      res.status(200).json({ offersOfType });
+    } catch (err) {
+      errorMessage(res);
+    }
+  },
 };
 
 module.exports = offerController;

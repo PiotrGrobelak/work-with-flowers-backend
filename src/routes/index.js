@@ -40,5 +40,6 @@ router.get(
 );
 
 router.get('/offers', offerController.getAllOffers);
+router.get('/offers/type', offerController.getOffersByType);
 
 module.exports = router;
