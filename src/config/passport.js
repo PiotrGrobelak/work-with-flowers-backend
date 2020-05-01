@@ -2,6 +2,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const JwtStrategy = require('passport-jwt').Strategy;
 const dotenv = require('dotenv');
+
 const User = require('../models/User');
 
 dotenv.config();
@@ -21,8 +22,8 @@ passport.use(
       jwtFromRequest: cookieExtractor,
       secretOrKey: process.env.SECRET,
     },
-    (paylod, done) => {
-      User.findById({ _id: paylod.sub }, (err, user) => {
+    (payload, done) => {
+      User.findById({ _id: payload.sub }, (err, user) => {
         if (err) {
           return done(err, false);
         }
@@ -36,7 +37,7 @@ passport.use(
   ),
 );
 
-// authentication local strategy
+// authenticated local strategy using username and password
 passport.use(
   new LocalStrategy((username, password, done) => {
     User.findOne({ username }, (err, user) => {

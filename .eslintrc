@@ -20,6 +20,8 @@
     "consistent-return": 0,
     "space-before-function-paren": 0,
     "no-else-return": 0,
-    "dot-notation": ["error", { "allowPattern": "^[a-z]+(_[a-z]+)+$" }]
+    "dot-notation": ["error", { "allowPattern": "^[a-z]+(_[a-z]+)+$" }],
+    "no-underscore-dangle": 0,
+    "no-shadow": 1
   }
 }

@@ -1,8 +1,6 @@
-// const passport = require('passport');
-require('../config/passport');
-const signToken = require('../helpers/signToken');
 const User = require('../models/User');
-// const Offer = require('../models/Offer');
+const Offer = require('../models/Offer');
+const signToken = require('../helpers/signToken');
 
 const userController = {
   userRegister: (req, res) => {
@@ -12,11 +10,11 @@ const userController = {
         res.status(500).json({ message: { msgBody: 'Error has occured', msgError: true } });
       }
       if (user) {
-        res.status(400).json({ message: { msgBody: 'Username is alredy taken', msgError: true } });
+        res.status(400).json({ message: { msgBody: 'Username is already taken', msgError: true } });
       } else {
         const newUser = new User({ username, password, role });
-        newUser.save((error) => {
-          if (error) {
+        newUser.save((err) => {
+          if (err) {
             res.status(500).json({ message: { msgBody: 'Error has occured', msgError: true } });
           } else {
             res
@@ -38,6 +36,47 @@ const userController = {
   userLogout: (req, res) => {
     res.clearCookie('access_token');
     res.json({ user: { username: '', role: '' }, success: true });
+  },
+  userAddOffer: (req, res) => {
+    const offer = new Offer(req.body);
+    offer.save((err) => {
+      if (err) {
+        res.status(500).json({ message: { msgBody: 'Error has occured', msgError: true } });
+      } else {
+        req.user.offers.push(offer);
+        req.user.save((err) => {
+          if (err) {
+            res.status(500).json({ message: { msgBody: 'Error has occured', msgError: true } });
+          } else {
+            res
+              .status(200)
+              .json({ message: { msgBody: 'Successfully created offer', msgError: false } });
+          }
+        });
+      }
+    });
+  },
+  userGetOffers: (req, res) => {
+    User.findById({ _id: req.user._id })
+      .populate('offers')
+      .exec((err, document) => {
+        if (err) {
+          res.status(500).json({ message: { msgBody: 'Error has occured', msgError: true } });
+        } else {
+          res.status(200).json({ offers: document.offers, authenticated: true });
+        }
+      });
+  },
+  userEmployer: (req, res) => {
+    if (req.user.role === 'employer') {
+      res.status(200).json({ message: { msgBody: 'You are an employer', msgError: false } });
+    } else {
+      res.status(403).json({ message: { msgBody: "You're not an admin,go away", msgError: true } });
+    }
+  },
+  userAuthenticated: (req, res) => {
+    const { username, role } = req.user;
+    res.status(200).json({ isAuthenticated: true, user: { username, role } });
   },
 };
 

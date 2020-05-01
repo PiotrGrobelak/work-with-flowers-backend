@@ -1,7 +1,7 @@
 const express = require('express');
 const passport = require('passport');
 const { userController } = require('../controllers');
-// require('../config/passport');
+require('../config/passport');
 
 const router = express.Router();
 
@@ -15,6 +15,28 @@ router.get(
   '/user/logout',
   passport.authenticate('jwt', { session: false }),
   userController.userLogout,
+);
+
+router.post(
+  '/user/offer',
+  passport.authenticate('jwt', { session: false }),
+  userController.userAddOffer,
+);
+router.get(
+  '/user/offers',
+  passport.authenticate('jwt', { session: false }),
+  userController.userGetOffers,
+);
+
+router.get(
+  '/user/employer',
+  passport.authenticate('jwt', { session: false }),
+  userController.userEmployer,
+);
+router.get(
+  '/user/authenticated',
+  passport.authenticate('jwt', { session: false }),
+  userController.userAuthenticated,
 );
 
 module.exports = router;
