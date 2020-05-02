@@ -15,6 +15,13 @@
     "promise/no-promise-in-callback": "error",
     "promise/no-callback-in-promise": "error",
     "promise/no-return-in-finally": "error",
-    "prefer-arrow-callback": "error"
+    "prefer-arrow-callback": "error",
+    "func-names": 0,
+    "consistent-return": 0,
+    "space-before-function-paren": 0,
+    "no-else-return": 0,
+    "dot-notation": ["error", { "allowPattern": "^[a-z]+(_[a-z]+)+$" }],
+    "no-underscore-dangle": 0,
+    "no-shadow": 1
   }
 }
