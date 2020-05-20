@@ -36,7 +36,7 @@ const userController = {
   },
   userLogout: (req, res) => {
     res.clearCookie('access_token');
-    res.json({ user: { username: '', role: '' }, success: true });
+    res.json({ user: { username: '', role: '' }, success: true, isAuthenticated: false });
   },
   userAddOffer: (req, res) => {
     const offer = new Offer(req.body);
@@ -76,8 +76,12 @@ const userController = {
     }
   },
   userAuthenticated: (req, res) => {
-    const { username, role } = req.user;
-    res.status(200).json({ isAuthenticated: true, user: { username, role } });
+    const { _id, username, role } = req.user;
+    if (req.user) {
+      res.status(200).json({ isAuthenticated: true, user: { username, role, _id } });
+    } else {
+      res.status(403).json({ isAuthenticated: false, user: {} });
+    }
   },
 };
 

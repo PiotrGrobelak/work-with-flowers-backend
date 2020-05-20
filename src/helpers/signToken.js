@@ -9,7 +9,7 @@ const signToken = (userID) => JWT.sign(
     sub: userID,
   },
   process.env.SECRET,
-  { expiresIn: '1h' },
+  { expiresIn: '4m' },
 );
 
 module.exports = signToken;
