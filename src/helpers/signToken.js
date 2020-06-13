@@ -5,10 +5,10 @@ dotenv.config();
 
 const signToken = (userID) => JWT.sign(
   {
-    iss: process.env.SECRET,
+    iss: 'MyFlower',
     sub: userID,
   },
-  process.env.SECRET,
+  'MyFlower',
   { expiresIn: '4m' },
 );
 
