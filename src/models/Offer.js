@@ -20,6 +20,18 @@ const OfferSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  date: {
+    type: String,
+    required: true,
+  },
+  companyName: {
+    type: String,
+    required: true,
+  },
+  city: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model('Offer', OfferSchema);

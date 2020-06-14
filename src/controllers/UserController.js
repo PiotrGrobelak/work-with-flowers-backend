@@ -2,6 +2,7 @@ const User = require('../models/User');
 const Offer = require('../models/Offer');
 const signToken = require('../helpers/signToken');
 const errorMessage = require('../helpers/errorMessage');
+const creationDate = require('../helpers/creationDate');
 
 const userController = {
   userRegister: (req, res) => {
@@ -30,16 +31,22 @@ const userController = {
     if (req.isAuthenticated()) {
       const { _id, username, role } = req.user;
       const token = signToken(_id);
-      res.cookie('access_token', token, { httpOnly: true, sameSite: true });
-      res.status(200).json({ isAuthenticated: true, user: { username, role } });
+      res.cookie('access_token', token, {
+        secure: true,
+        httpOnly: true,
+        sameSite: 'None',
+      });
+
+      res.status(200).json({ isAuthenticated: true, user: { username, role, _id } });
     }
   },
   userLogout: (req, res) => {
     res.clearCookie('access_token');
-    res.json({ user: { username: '', role: '' }, success: true });
+    res.json({ user: { username: '', role: '' }, success: true, isAuthenticated: false });
   },
   userAddOffer: (req, res) => {
     const offer = new Offer(req.body);
+    offer.date = creationDate;
     offer.save((err) => {
       if (err) {
         errorMessage(res);
@@ -76,8 +83,12 @@ const userController = {
     }
   },
   userAuthenticated: (req, res) => {
-    const { username, role } = req.user;
-    res.status(200).json({ isAuthenticated: true, user: { username, role } });
+    const { _id, username, role } = req.user;
+    if (req.user) {
+      res.status(200).json({ isAuthenticated: true, user: { username, role, _id } });
+    } else {
+      res.status(403).json({ isAuthenticated: false, user: {} });
+    }
   },
 };
 
