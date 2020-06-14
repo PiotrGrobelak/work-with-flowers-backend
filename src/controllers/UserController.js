@@ -27,14 +27,11 @@ const userController = {
     });
   },
   userLogin: (req, res) => {
-    console.log(req.isAuthenticated());
     if (req.isAuthenticated()) {
       const { _id, username, role } = req.user;
       const token = signToken(_id);
       res.cookie('access_token', token, {
         secure: true,
-        // signed: true,
-        // expires: new Date(Date.now() + 1 * 3600000),
         httpOnly: true,
         sameSite: 'None',
       });
