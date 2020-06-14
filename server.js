@@ -23,6 +23,15 @@ app.use(
     origin: 'https://work-with-flowers.netlify.app',
   }),
 );
+// app.use(
+//   cors({
+//     credentials: true,
+//     origin: 'http://localhost:3000',
+//   }),
+// );
+
+// 'http://192.168.8.103:3000'
+
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

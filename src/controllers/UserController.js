@@ -2,6 +2,7 @@ const User = require('../models/User');
 const Offer = require('../models/Offer');
 const signToken = require('../helpers/signToken');
 const errorMessage = require('../helpers/errorMessage');
+const creationDate = require('../helpers/creationDate');
 
 const userController = {
   userRegister: (req, res) => {
@@ -45,6 +46,7 @@ const userController = {
   },
   userAddOffer: (req, res) => {
     const offer = new Offer(req.body);
+    offer.date = creationDate;
     offer.save((err) => {
       if (err) {
         errorMessage(res);
