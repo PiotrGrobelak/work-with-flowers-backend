@@ -12,7 +12,9 @@ const userController = {
         errorMessage(res);
       }
       if (user) {
-        res.status(400).json({ message: { msgBody: 'Username is already taken', msgError: true } });
+        res
+          .status(400)
+          .json({ message: { msgBody: 'Nazwa użytkownika jest zajęta', msgError: true } });
       } else {
         const newUser = new User({ username, password, role });
         newUser.save((err) => {
@@ -21,7 +23,7 @@ const userController = {
           } else {
             res
               .status(201)
-              .json({ message: { msgBody: 'Account successfully created', msgError: false } });
+              .json({ message: { msgBody: 'Konto zotało utowrzone', msgError: false } });
           }
         });
       }
@@ -87,7 +89,7 @@ const userController = {
     if (req.user) {
       res.status(200).json({ isAuthenticated: true, user: { username, role, _id } });
     } else {
-      res.status(403).json({ isAuthenticated: false, user: {} });
+      res.status(400).json({ isAuthenticated: false, user: {} });
     }
   },
 };

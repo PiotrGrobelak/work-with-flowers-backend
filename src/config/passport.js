@@ -15,15 +15,15 @@ const cookieExtractor = (req) => {
   return token;
 };
 
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
+// passport.serializeUser((user, done) => {
+//   done(null, user.id);
+// });
 
-passport.deserializeUser((id, done) => {
-  User.findById(id, (err, user) => {
-    done(null, user);
-  });
-});
+// passport.deserializeUser((id, done) => {
+//   User.findById(id, (err, user) => {
+//     done(null, user);
+//   });
+// });
 
 // authorization
 passport.use(

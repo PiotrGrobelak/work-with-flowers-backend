@@ -30,8 +30,6 @@ app.use(
 //   }),
 // );
 
-// 'http://192.168.8.103:3000'
-
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
