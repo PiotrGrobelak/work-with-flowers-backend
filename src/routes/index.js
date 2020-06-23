@@ -6,11 +6,13 @@ require('../config/passport');
 const router = express.Router();
 
 router.post('/user/register', userController.userRegister);
+
 router.post(
   '/user/login',
   passport.authenticate('local', { session: false }),
   userController.userLogin,
 );
+
 router.get(
   '/user/logout',
   passport.authenticate('jwt', { session: false }),
@@ -22,6 +24,7 @@ router.post(
   passport.authenticate('jwt', { session: false }),
   userController.userAddOffer,
 );
+
 router.get(
   '/user/offers',
   passport.authenticate('jwt', { session: false }),
@@ -33,6 +36,7 @@ router.get(
   passport.authenticate('jwt', { session: false }),
   userController.userEmployer,
 );
+
 router.get(
   '/user/authenticated',
   passport.authenticate('jwt', { session: false }),
@@ -41,5 +45,6 @@ router.get(
 
 router.get('/offers', offerController.getAllOffers);
 router.get('/offers/type', offerController.getOffersByType);
+router.get('/offer/:id', offerController.getOfferById);
 
 module.exports = router;

@@ -60,7 +60,7 @@ const userController = {
           } else {
             res
               .status(200)
-              .json({ message: { msgBody: 'Successfully created offer', msgError: false } });
+              .json({ message: { msgBody: 'Twoja oferta została dodana', msgError: false } });
           }
         });
       }

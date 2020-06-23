@@ -18,6 +18,14 @@ const offerController = {
       errorMessage(res);
     }
   },
+  getOfferById: async (req, res) => {
+    const currentOffer = await Offer.findById(req.params.id);
+    try {
+      res.status(200).json({ currentOffer });
+    } catch (err) {
+      errorMessage(res);
+    }
+  },
 };
 
 module.exports = offerController;
