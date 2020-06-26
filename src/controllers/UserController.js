@@ -34,13 +34,18 @@ const userController = {
       const { _id, username, role } = req.user;
       const token = signToken(_id);
       res.cookie('access_token', token, {
-        secure: true,
+        // secure: true,
         httpOnly: true,
-        sameSite: 'None',
+        // sameSite: 'None',
       });
 
       res.status(200).json({ isAuthenticated: true, user: { username, role, _id } });
     }
+  },
+  userLoginError: (err, req, res, next) => {
+    err.statusMessage = 'Niepoprawny login lub hasło';
+    res.json(err.statusMessage);
+    next();
   },
   userLogout: (req, res) => {
     res.clearCookie('access_token');
@@ -81,7 +86,9 @@ const userController = {
     if (req.user.role === 'employer') {
       res.status(200).json({ message: { msgBody: 'You are an employer', msgError: false } });
     } else {
-      res.status(403).json({ message: { msgBody: "You're not an admin,go away", msgError: true } });
+      res
+        .status(403)
+        .json({ message: { msgBody: "You're not an employer,go away", msgError: true } });
     }
   },
   userAuthenticated: (req, res) => {

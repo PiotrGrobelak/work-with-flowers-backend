@@ -9,8 +9,9 @@ router.post('/user/register', userController.userRegister);
 
 router.post(
   '/user/login',
-  passport.authenticate('local', { session: false }),
+  passport.authenticate('local', { session: false, failWithError: true }),
   userController.userLogin,
+  userController.userLoginError,
 );
 
 router.get(
