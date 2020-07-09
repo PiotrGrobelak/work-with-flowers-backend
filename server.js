@@ -18,13 +18,6 @@ app.use(cookieParser(''));
 app.use(passport.initialize());
 app.use(passport.session());
 
-// app.use(
-//   cors({
-//     credentials: true,
-//     origin: 'https://work-with-flowers.netlify.app',
-//   }),
-// );
-
 app.use(
   cors({
     credentials: true,
@@ -52,7 +45,7 @@ mongoose.connect(process.env.DATABASE_URL, {
 const db = mongoose.connection;
 
 db.once('open', () => {
-  console.log('Connect with Atlas flowersDB');
+  console.log('Connect with MongoDB');
 });
 
 app.listen(PORT, () => {

@@ -34,9 +34,7 @@ const userController = {
       const { _id, username, role } = req.user;
       const token = signToken(_id);
       res.cookie('access_token', token, {
-        // secure: true,
         httpOnly: true,
-        // sameSite: 'None',
       });
 
       res.status(200).json({ isAuthenticated: true, user: { username, role, _id } });
