@@ -9,7 +9,7 @@ const signToken = (userID) => JWT.sign(
     sub: userID,
   },
   'MyFlower',
-  { expiresIn: '4m' },
+  { expiresIn: '30m' },
 );
 
 module.exports = signToken;

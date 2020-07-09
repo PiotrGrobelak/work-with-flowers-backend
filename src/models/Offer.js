@@ -8,19 +8,7 @@ const OfferSchema = new mongoose.Schema({
     enum: WORK_TYPES,
     required: true,
   },
-  name: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-    required: true,
-  },
-  about: {
-    type: String,
-    required: true,
-  },
-  date: {
+  title: {
     type: String,
     required: true,
   },
@@ -29,6 +17,30 @@ const OfferSchema = new mongoose.Schema({
     required: true,
   },
   city: {
+    type: String,
+    required: true,
+  },
+  adress: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+  about: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  requirements: {
+    type: [String],
+    required: true,
+  },
+  date: {
     type: String,
     required: true,
   },
