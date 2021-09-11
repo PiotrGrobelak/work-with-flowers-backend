@@ -17,18 +17,19 @@ app.use(bodyParser.json());
 app.use(cookieParser('dsdafvcewve'));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(
-  cors({
-    credentials: true,
-    origin: 'https://work-with-flowers.netlify.app',
-  }),
-);
 // app.use(
 //   cors({
 //     credentials: true,
-//     origin: 'http://localhost:3000',
+//     origin: 'https://work-with-flowers.netlify.app',
 //   }),
 // );
+
+app.use(
+  cors({
+    credentials: true,
+    origin: 'http://localhost:3000',
+  }),
+);
 
 // 'http://192.168.8.103:3000'
 

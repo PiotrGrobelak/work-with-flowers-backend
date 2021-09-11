@@ -29,12 +29,17 @@ const userController = {
   },
   userLogin: (req, res) => {
     if (req.isAuthenticated()) {
+      console.log('sdas');
+
       const { _id, username, role } = req.user;
       const token = signToken(_id);
+
+      console.log(token);
+
       res.cookie('access_token', token, {
-        secure: true,
+        // secure: true,
         httpOnly: true,
-        sameSite: 'None',
+        // sameSite: 'None',
       });
 
       res.status(200).json({ isAuthenticated: true, user: { username, role, _id } });

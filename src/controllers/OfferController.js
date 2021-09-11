@@ -12,6 +12,7 @@ const offerController = {
   },
   getOffersByType: async (req, res) => {
     const offers = await Offer.find({ type: req.query.type });
+    console.log(req.query.type);
     try {
       res.status(200).json({ offers });
     } catch (err) {
